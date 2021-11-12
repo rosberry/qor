@@ -1,4 +1,4 @@
-module github.com/qor/qor
+module github.com/rosberry/qor
 
 go 1.13
 
