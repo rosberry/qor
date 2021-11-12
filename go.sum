@@ -97,10 +97,6 @@ github.com/qor/publish v0.0.0-20181014061411-abfbacee9e0d/go.mod h1:rsJ6QTqNLOPY
 github.com/qor/publish2 v0.0.0-20200106024649-fcb930aa85ac/go.mod h1:f29A86/3KWWIOAsHjZP4gVb/PHHtPIONEm5ZrjqTU9A=
 github.com/qor/publish2 v0.0.0-20200729081509-d97fdb5620a5 h1:yPZKRv1lxMYphCyWyzUYvqXH8NvSNr8O/LwNeSONp8E=
 github.com/qor/publish2 v0.0.0-20200729081509-d97fdb5620a5/go.mod h1:eWD99pi0Tv8eO0V+cdDxTpJEZYuxjMzQ0oBo0DRx8vE=
-github.com/qor/qor v0.0.0-20200715033016-13227382be83/go.mod h1:oG+LgDEnsI9avcFFdczoZnBe3rw42s4cG433w6XpEig=
-github.com/qor/qor v0.0.0-20200729071734-d587cffbbb93/go.mod h1:i3WqgQWpyNJRB9D3ewgthf5/8fR/ALcvPGUqu5vHZA8=
-github.com/qor/qor v0.0.0-20200910063046-9fd9b0159793/go.mod h1:auMzQviFtvyB4kMsKZ4STU78euz0f/lDD52xY8DAyGE=
-github.com/qor/qor v0.0.0-20210618082622-a52aba0a0ce1/go.mod h1:o/VCIcWT8JQ+9t6fHGZZ3sDABv39PwktdJL3I5qmGHw=
 github.com/qor/responder v0.0.0-20171031032654-b6def473574f h1:sKELSAyL+z5BRHFe97Bx71z197cBEobVJ6rASKTMSqU=
 github.com/qor/responder v0.0.0-20171031032654-b6def473574f/go.mod h1:0TL2G+qGDYhHJ6XIJ6UcqkZVN+jp8AGqGU2wDnv2qas=
 github.com/qor/roles v0.0.0-20171127035124-d6375609fe3e h1:F0BNcPJKfubM/+IIILu/GbrH9v2vPZWQ5/StSRKUfK4=
