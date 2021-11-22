@@ -3,6 +3,9 @@ package resource
 import (
 	"errors"
 	"fmt"
+	"log"
+	"reflect"
+	"strconv"
 	"strings"
 
 	"github.com/jinzhu/gorm"
@@ -101,6 +104,17 @@ func (res *Resource) findOneHandler(result interface{}, metaValues *MetaValues, 
 			if metaValues != nil {
 				if destroy := metaValues.Get("_destroy"); destroy != nil {
 					if fmt.Sprint(destroy.Value) != "0" && res.HasPermission(roles.Delete, context) {
+						
+						primaryID := primaryParams[0].(string)
+						intID, _ := strconv.Atoi(primaryID)
+
+						valOf := reflect.ValueOf(result)
+
+						f, ok := searchField("ID", valOf)
+						if ok {
+							f.Set(reflect.ValueOf(uint(intID)))
+						}
+						
 						context.GetDB().Delete(result, append([]interface{}{primaryQuerySQL}, primaryParams...)...)
 						return ErrProcessorSkipLeft
 					}
@@ -145,4 +159,52 @@ func (res *Resource) deleteHandler(result interface{}, context *qor.Context) err
 		return gorm.ErrRecordNotFound
 	}
 	return roles.ErrPermissionDenied
+}
+
+func fieldName(f reflect.StructField) (sortName string) {
+	if t := f.Tag.Get("cursor"); t != "" {
+		sortName = t
+	} else if t := f.Tag.Get("json"); t != "" {
+		sortName = t
+	} else {
+		sortName = strings.ToLower(f.Name)
+	}
+
+	return
+}
+
+func searchField(name string, val reflect.Value) (val2 reflect.Value, ok bool) {
+	name = strings.ToLower(name)
+
+	typ := val.Type()
+
+	if val.Kind() == reflect.Ptr {
+		typ = reflect.Indirect(val).Type()
+		val = reflect.Indirect(val)
+	}
+
+	if typ.Kind() != reflect.Struct {
+		return reflect.Value{}, false
+	}
+
+	for i := 0; i < typ.NumField(); i++ {
+		f := typ.Field(i)
+
+		if f.Type.Kind() == reflect.Struct && f.Anonymous {
+			f, ok := searchField(name, val.Field(i))
+			if ok {
+				return f, true
+			} else {
+				continue
+			}
+		}
+
+		if sName := fieldName(f); strings.ToLower(name) == strings.ToLower(sName) {
+			log.Print("Found!")
+			return val.Field(i), true
+		}
+	}
+	log.Printf("Not found field %s in struct %v\n", name, typ.Name())
+
+	return reflect.Value{}, false
 }
